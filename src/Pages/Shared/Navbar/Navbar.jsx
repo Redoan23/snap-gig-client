@@ -5,8 +5,8 @@ const Navbar = () => {
 
     const routeLinks =
         <>
-            <li><a>Login</a></li>
-            <li><a>Register</a></li>
+            <li><NavLink to='/login'>Login</NavLink></li>
+            <li><NavLink to='/register'>Register</NavLink></li>
             <li><NavLink to='https://youtu.be/usoQupzfGR0?si=kDGBBVUmwgpqRUJ0' target='_blank'>Watch Demo</NavLink></li>
         </>
 
