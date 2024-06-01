@@ -1,16 +1,18 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
 
     const routeLinks =
         <>
-            <li><a>Item 1</a></li>
-            <li><a>Item 3</a></li>
+            <li><a>Login</a></li>
+            <li><a>Register</a></li>
+            <li><NavLink to='https://youtu.be/usoQupzfGR0?si=kDGBBVUmwgpqRUJ0' target='_blank'>Watch Demo</NavLink></li>
         </>
 
     return (
         <div>
-            <div className="navbar bg-base-100">
+            <div className="navbar bg-base-100 max-w-screen-2xl mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -20,7 +22,7 @@ const Navbar = () => {
                             {routeLinks}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <Link to='/' className="text-3xl font-semibold">Snap Gig</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -28,7 +30,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Button</a>
+                    <a className="btn bg-[#007bff] text-white">Login</a>
                 </div>
             </div>
         </div>
