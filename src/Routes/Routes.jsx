@@ -2,8 +2,8 @@ import React from 'react';
 import { createBrowserRouter } from "react-router-dom";
 import Main from '../Layouts/Main/Main';
 import Home from '../Pages/Home/Home';
-import { Login } from 'tabler-icons-react';
 import Register from '../Pages/UserAuthentication/Register/Register';
+import Login from '../Pages/UserAuthentication/Login/Login';
 
 
 

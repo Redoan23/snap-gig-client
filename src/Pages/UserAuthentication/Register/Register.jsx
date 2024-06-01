@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form"
+import useAuth from '../../../Hooks/useAuth';
+import { updateProfile } from 'firebase/auth';
+import useAxiosPublic from '../../../Hooks/useAxiosPublic/useAxiosPublic';
+import Swal from 'sweetalert2';
 
 const Register = () => {
-    const poorRegex = /^[a-zA-Z]{1,}$/;
+    const poorRegex = /^[a-zA-Z0-9]{1,5}$/;
     const goodRegex = /^(?=.*[0-9])[a-zA-Z0-9]{6,}$/;
     const strongRegex = /^(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+
+    const { createUser, user, googleLogin } = useAuth()
+
 
     const {
         register,
@@ -15,16 +22,70 @@ const Register = () => {
     } = useForm()
 
 
-
     const onSubmit = (data) => {
+        const name = data.name
+        const email = data.email
+        const password = data.password
+        const url = data.url
+        const role = data.role
+        const file = { image: data.file[0] }
+        const imgBBUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`
+        const axiosPublic = useAxiosPublic()
+
+
         if (data.role === 'selectrole') {
             setError('role', {
                 type: 'manual',
             });
             return;
         }
-        console.log(data)
 
+        axiosPublic.post(imgBBUrl, file, {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+        })
+            .then(res => {
+                const imgLink = res.data.data.display_url
+                createUser(email, password)
+                    .then(res => {
+                        console.log(res.user)
+                        updateProfile(res.user, {
+                            displayName: name,
+                            photoURL: imgLink ? imgLink : url
+                        })
+                    })
+                    .catch(err => {
+                        console.error(err)
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "error",
+                            title: `${err.message}`,
+                            showConfirmButton: false,
+                            timer: 1500,
+                            heightAuto: true
+
+                        });
+                    })
+
+            })
+            .catch(err => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: `${err.response.data.error.message}, please choose a photo from your gallery`,
+                    text: `${err.message}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
+
+
+
+
+
+
+        console.log(data)
     };
 
 
@@ -39,16 +100,12 @@ const Register = () => {
     } else if (strongRegex.test(password)) {
         passwordStrength = 'strong'
     }
-    // else{
-    //     passwordStrength='okay'
-    // }
-
 
 
     return (
         <div>
-            <div>
-                <form onSubmit={handleSubmit(onSubmit)} className=' p-16' >
+            <div className=' p-16 pb-0' >
+                <form onSubmit={handleSubmit(onSubmit)} >
                     <div className=' flex flex-col gap-4 px-24 py-10'>
 
                         <label htmlFor="name" className=' w-full flex flex-col gap-1'> Name*
@@ -97,6 +154,12 @@ const Register = () => {
                         </div>
                     </div>
                 </form>
+                <div className=' divider'>
+                    or register with social
+                </div>
+                <div>
+                    <button onClick={googleLogin} className=' btn bg-[#007bff] text-white'>google signup</button>
+                </div>
             </div>
         </div>
     );
