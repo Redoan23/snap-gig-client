@@ -28,11 +28,11 @@ const Dashboard = () => {
 
                     {user === 'taskcreator' &&
                         <ul className='menu text-white space-y-4'>
-                            <li><NavLink to='/'>Home</NavLink></li>
-                            <li><NavLink to='/'>Add New Tasks</NavLink></li>
-                            <li><NavLink to='/'>My Tasks</NavLink></li>
-                            <li><NavLink to='/'>Purchase Coin</NavLink></li>
-                            <li><NavLink to='/'>Payment History</NavLink></li>
+                            <li><NavLink to='/dashboard'>Home</NavLink></li>
+                            <li><NavLink to='/dashboard/addnewtasks'>Add New Tasks</NavLink></li>
+                            <li><NavLink to='/dashboard/mytasks'>My Tasks</NavLink></li>
+                            <li><NavLink to='/dashboard/purchasecoin'>Purchase Coin</NavLink></li>
+                            <li><NavLink to='/dashboard/paymenthistory'>Payment History</NavLink></li>
                         </ul>
                     }
                     {
