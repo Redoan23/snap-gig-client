@@ -79,9 +79,11 @@ const Login = () => {
                     {errors.email && <span className=' text-red-500'>Email is required*</span>}
                     <label htmlFor="password" className=' flex flex-col gap-1 w-full'>
                         Password*
-                        <input type='password' placeholder='password'{...register("password", { required: true })} className=' bg-gray-100 p-3 w-full' />
+                        <input type='password' placeholder='password'{...register("password", { required: 'password is required*' })} className=' bg-gray-100 p-3 w-full' />
                     </label>
-                    {errors.password && errors.password.message?<span className=' text-red-500'>{ errors.password.message}</span>:<span className=' text-red-500'>Password is required*</span>}
+                    {/* {errors.password && errors.password.message ? <span className=' text-red-500'>{errors.password.message}</span> : <span className=' text-red-500'>Password is required*</span>} */}
+                    {errors.password && errors.message}
+                    {errors?.password?.message && <span className=' text-red-500'>{errors?.password?.message}</span>}
 
                     <div className='w-full'>
                         <input type="submit" value='Login' className=' btn bg-[#007bff] text-white w-full' />
@@ -90,10 +92,10 @@ const Login = () => {
                 <div className=' divider'>
                     or login with social
                 </div>
-                <div>
-                    <button className=' btn bg-[#007bff] text-white' onClick={handleGoogleLogin}>Google Login</button>
-                </div>
             </form>
+            <div>
+                <button className=' btn bg-[#007bff] text-white' onClick={handleGoogleLogin}>Google Login</button>
+            </div>
         </div>
     );
 };
