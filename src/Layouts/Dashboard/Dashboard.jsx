@@ -1,23 +1,54 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import Footer from '../../Pages/Shared/Footer/Footer';
-import Navbar from '../../Pages/Shared/Navbar/Navbar';
+import DashboardNavbar from './DashboardNavbar/DashboardNavbar';
+import useUserData from '../../Hooks/useUserData/useUserData';
 
 const Dashboard = () => {
+
+    // const user = 'taskcreator'
+    const [ userData ] = useUserData()
+    console.log(userData)
+    const user = userData?.role
+
     return (
         <div>
+            <DashboardNavbar></DashboardNavbar>
             <div className=' flex'>
-                <div className=' bg-blue-500 h-screen w-52 p-10'>
-                    <ul className='menu text-white'>
-                        <li><NavLink to='/'>Home</NavLink></li>
-                        <li><NavLink to='/'>Home</NavLink></li>
-                    </ul>
+                <div className=' bg-blue-500 min-h-screen w-52 p-4'>
+
+                    {
+                        user === 'admin' &&
+                        <ul className='menu text-white space-y-4'>
+                            <li><NavLink to='/'>Home</NavLink></li>
+                            <li><NavLink to='/'>Manage Users</NavLink></li>
+                            <li><NavLink to='/'>Manage Tasks</NavLink></li>
+                        </ul>
+                    }
+
+                    {user === 'taskcreator' &&
+                        <ul className='menu text-white space-y-4'>
+                            <li><NavLink to='/'>Home</NavLink></li>
+                            <li><NavLink to='/'>Add New Tasks</NavLink></li>
+                            <li><NavLink to='/'>My Tasks</NavLink></li>
+                            <li><NavLink to='/'>Purchase Coin</NavLink></li>
+                            <li><NavLink to='/'>Payment History</NavLink></li>
+                        </ul>
+                    }
+                    {
+                        user === 'worker' &&
+                        <ul className='menu text-white space-y-4'>
+                            <li><NavLink to='/'>Home</NavLink></li>
+                            <li><NavLink to='/'>Task List</NavLink></li>
+                            <li><NavLink to='/'>My Submission</NavLink></li>
+                        </ul>
+                    }
                 </div>
-                <div>
-                    <div>
+                <div className=' w-full'>
+                    <div className=''>
                         <Outlet></Outlet>
                     </div>
-                    <div>
+                    <div className=''>
                         <Footer></Footer>
                     </div>
                 </div>

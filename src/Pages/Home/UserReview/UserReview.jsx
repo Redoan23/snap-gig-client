@@ -13,8 +13,6 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 const UserReview = () => {
 
     const [reviews, setReview] = useState([])
-    console.log(reviews)
-
 
     useEffect(() => {
         fetch('./review.json')

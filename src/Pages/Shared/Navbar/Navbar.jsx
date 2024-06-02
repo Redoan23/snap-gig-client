@@ -1,17 +1,22 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
+import useUserData from '../../../Hooks/useUserData/useUserData';
+import { RiCoinsLine } from 'react-icons/ri';
 
 const Navbar = () => {
 
     const { user, logOut } = useAuth()
+    const [userData, refetch] = useUserData()
     const routeLinks =
         <>
-            <li><NavLink to='/login'>Login</NavLink></li>
-            <li><NavLink to='/register'>Register</NavLink></li>
-            {/* {!user && <li><NavLink to='/login'>Login</NavLink></li>}
-            {!user && <li><NavLink to='/register'>Register</NavLink></li>} */}
+            {/* <li><NavLink to='/login'>Login</NavLink></li>
+            <li><NavLink to='/register'>Register</NavLink></li> */}
+            {!user && <li><NavLink to='/login'>Login</NavLink></li>}
+            {!user && <li><NavLink to='/register'>Register</NavLink></li>}
             <li><NavLink to='https://youtu.be/usoQupzfGR0?si=kDGBBVUmwgpqRUJ0' target='_blank'>Watch Demo</NavLink></li>
+            {user && <li> <NavLink to='/userprofile'>User Profile</NavLink> </li>}
+            {user && <li> <NavLink to='/dashboard'>Dashboard</NavLink> </li>}
         </>
 
     const handleLogOut = () => {
@@ -39,6 +44,7 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end">
                     {user && <div className=' flex items-center gap-3'>
+                        {userData && <p className=' flex items-center gap-1'>Total Coin : {userData?.coin} <RiCoinsLine className=' text-yellow-500 text-xl' /> </p>}
                         <div className=' overflow-hidden'>
                             <img className=' w-12  h-12 rounded-full' src={user.photoURL} alt="" />
                         </div>
