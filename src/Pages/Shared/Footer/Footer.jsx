@@ -12,9 +12,9 @@ const Footer = () => {
           <p>Copyright © 2024 - All right reserved by Snap Gig</p>
         </aside>
         <nav className="grid-flow-col items-center gap-4 md:place-self-center md:justify-self-end">
-          <a><LiaLinkedin className=' text-3xl hover:text-blue-600'/></a>
-          <a href='https://github.com/redoan23' target='_blank'><FaGithub className=' text-2xl hover:text-[#000000c0] hover:bg-white rounded-full border-none'/></a>
-          <a href='https://x.com/RedoanRafi8 ' ><FaXTwitter className=' text-2xl p-0 hover:text-[black]'/></a>
+          <a href='https://www.linkedin.com/in/redoanalmahmud23' target='_blank'><LiaLinkedin className=' text-3xl hover:text-blue-600' /></a>
+          <a href='https://github.com/redoan23' target='_blank'><FaGithub className=' text-2xl hover:text-[#000000c0] hover:bg-white rounded-full border-none' /></a>
+          <a href='https://x.com/RedoanRafi8 ' target='_blank'><FaXTwitter className=' text-2xl p-0 hover:text-[black]' /></a>
         </nav>
       </footer>
     </div>

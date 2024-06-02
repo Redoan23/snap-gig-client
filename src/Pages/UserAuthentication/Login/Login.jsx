@@ -1,10 +1,24 @@
 import React from 'react';
 import { useForm } from "react-hook-form"
 import useAuth from '../../../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Login = () => {
 
     const { user, googleLogin, loginUser } = useAuth()
+
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
 
     const {
         register,
@@ -17,23 +31,39 @@ const Login = () => {
     const onSubmit = (data) => {
         const email = data.email
         const password = data.password
-        console.log(data)
         loginUser(email, password)
             .then(res => {
-                console.log(res.user)
+                Toast.fire({
+                    text: 'Login successful',
+                    icon: 'success'
+                })
             })
             .catch(err => {
-                console.log(err)
+                setError('password', {
+                    type: 'manual',
+                    message: 'Invalid Email or Password'
+                })
+                // Toast.fire({
+                //     text: `${err.message}`,
+                //     icon: 'error'
+                // })
             })
     }
 
     const handleGoogleLogin = () => {
         googleLogin()
             .then(res => {
-                console.log(res.user)
+                // TODO:redirect to the dashboard
+                Toast.fire({
+                    text: 'Login successful',
+                    icon: 'success'
+                })
             })
             .catch(err => {
-                console.log(err)
+                Toast.fire({
+                    text: `${err.message}`,
+                    icon: 'error'
+                })
             })
     }
 
@@ -51,7 +81,7 @@ const Login = () => {
                         Password*
                         <input type='password' placeholder='password'{...register("password", { required: true })} className=' bg-gray-100 p-3 w-full' />
                     </label>
-                    {errors.password && <span className=' text-red-500'>Password is required*</span>}
+                    {errors.password && errors.password.message?<span className=' text-red-500'>{ errors.password.message}</span>:<span className=' text-red-500'>Password is required*</span>}
 
                     <div className='w-full'>
                         <input type="submit" value='Login' className=' btn bg-[#007bff] text-white w-full' />

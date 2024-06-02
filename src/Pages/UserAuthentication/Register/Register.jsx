@@ -6,11 +6,25 @@ import useAxiosPublic from '../../../Hooks/useAxiosPublic/useAxiosPublic';
 import Swal from 'sweetalert2';
 
 const Register = () => {
+
+    const axiosPublic = useAxiosPublic()
+    const { createUser, user, googleLogin } = useAuth()
+
     const poorRegex = /^[a-zA-Z0-9]{1,5}$/;
     const goodRegex = /^(?=.*[0-9])[a-zA-Z0-9]{6,}$/;
     const strongRegex = /^(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
-    const { createUser, user, googleLogin } = useAuth()
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
 
 
     const {
@@ -21,7 +35,6 @@ const Register = () => {
         formState: { errors },
     } = useForm()
 
-
     const onSubmit = (data) => {
         const name = data.name
         const email = data.email
@@ -30,7 +43,7 @@ const Register = () => {
         const role = data.role
         const file = { image: data.file[0] }
         const imgBBUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`
-        const axiosPublic = useAxiosPublic()
+        const userData = { name, email, role }
 
 
         if (data.role === 'selectrole') {
@@ -39,6 +52,7 @@ const Register = () => {
             });
             return;
         }
+
 
         axiosPublic.post(imgBBUrl, file, {
             headers: {
@@ -49,14 +63,22 @@ const Register = () => {
                 const imgLink = res.data.data.display_url
                 createUser(email, password)
                     .then(res => {
-                        console.log(res.user)
                         updateProfile(res.user, {
                             displayName: name,
                             photoURL: imgLink ? imgLink : url
                         })
+
+                        axiosPublic.post('/users', userData)
+                            .then(res => {
+                                console.log(res.data)
+                            })
+                            .catch(err => {
+                                console.log(err)
+                            })
+
                     })
                     .catch(err => {
-                        console.error(err)
+                        console.log(err)
                         Swal.fire({
                             position: "top-end",
                             icon: "error",
@@ -64,7 +86,6 @@ const Register = () => {
                             showConfirmButton: false,
                             timer: 1500,
                             heightAuto: true
-
                         });
                     })
 
@@ -79,16 +100,7 @@ const Register = () => {
                     timer: 1500
                 });
             })
-
-
-
-
-
-
-        console.log(data)
     };
-
-
     // password strength watcher
     let passwordStrength = ''
 
@@ -101,6 +113,32 @@ const Register = () => {
         passwordStrength = 'strong'
     }
 
+
+    const handleGoogleLogin = () => {
+        googleLogin()
+            .then(res => {
+                const user = res.user
+                const name = user.displayName
+                const email = user.email
+                const role = 'worker'
+                const userData = { name, email, role }
+                axiosPublic.post('/users', userData)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            Toast.fire({
+                                text: 'Registration successful',
+                                icon: 'success'
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        Toast.fire({
+                            text: `${err.response.data.message}, logging in automatically`,
+                            icon: 'error',
+                        })
+                    })
+            })
+    }
 
     return (
         <div>
@@ -126,8 +164,9 @@ const Register = () => {
                             {errors.url && <span className=' text-red-500'> Photo URL is required*</span>}
                             Or Upload a file
                             <label htmlFor="file" className=' flex flex-col w-full gap-1'>
-                                <input type="file" name="file" id="file" className='w-full p-3 bg-gray-100' placeholder='Upload a file'{...register('file')} />
+                                <input type="file" name="file" id="file" className='w-full p-3 bg-gray-100' placeholder='Upload a file'{...register('file', { required: true })} />
                             </label>
+                            {errors.file && <span className=' text-red-500'>Choose a file*</span>}
                         </div>
 
                         <label htmlFor="password" className=' w-full flex flex-col gap-1'>
@@ -158,7 +197,7 @@ const Register = () => {
                     or register with social
                 </div>
                 <div>
-                    <button onClick={googleLogin} className=' btn bg-[#007bff] text-white'>google signup</button>
+                    <button onClick={handleGoogleLogin} className=' btn bg-[#007bff] text-white'>google signup</button>
                 </div>
             </div>
         </div>
