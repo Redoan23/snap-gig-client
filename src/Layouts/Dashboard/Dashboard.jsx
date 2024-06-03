@@ -7,8 +7,7 @@ import useUserData from '../../Hooks/useUserData/useUserData';
 const Dashboard = () => {
 
     // const user = 'taskcreator'
-    const [ userData ] = useUserData()
-    console.log(userData)
+    const [userData] = useUserData()
     const user = userData?.role
 
     return (
@@ -20,9 +19,9 @@ const Dashboard = () => {
                     {
                         user === 'admin' &&
                         <ul className='menu text-white space-y-4'>
-                            <li><NavLink to='/'>Home</NavLink></li>
-                            <li><NavLink to='/'>Manage Users</NavLink></li>
-                            <li><NavLink to='/'>Manage Tasks</NavLink></li>
+                            <li><NavLink to='/dashboard/adminHome'>Home</NavLink></li>
+                            <li><NavLink to='/dashboard/manageUsers'>Manage Users</NavLink></li>
+                            <li><NavLink to='/dashboard/manageTasks'>Manage Tasks</NavLink></li>
                         </ul>
                     }
 

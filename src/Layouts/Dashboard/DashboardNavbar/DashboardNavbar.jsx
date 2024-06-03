@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../../Hooks/useAuth';
-import useAxiosPrivate from '../../../Hooks/useAxiosPrivate/useAxiosPrivate';
-import useAxiosPublic from '../../../Hooks/useAxiosPublic/useAxiosPublic';
 import { Link } from 'react-router-dom';
 import { RiCoinsLine } from 'react-icons/ri';
 import useUserData from '../../../Hooks/useUserData/useUserData';
@@ -20,14 +18,14 @@ const DashboardNavbar = () => {
                 <div className=' flex items-center gap-3 '>
                     <div className=' flex flex-col items-center justify-between'>
                         <div className=' flex items-center justify-center text-center text-black'>
-                           {userData.role !=='admin' && <p className=' flex items-center gap-1'>Total Coins : {userData?.coin} <RiCoinsLine className=' text-yellow-500' /> </p>}
+                            {userData.role !== 'admin' && <p className=' flex items-center gap-1'>Total Coins : {userData?.coin} <RiCoinsLine className=' text-yellow-500' /> </p>}
                         </div>
-                        <p>{userData?.role}</p>
+                        <p>Role: {userData?.role}</p>
 
                     </div>
                     <div className=' flex flex-col items-center justify-between'>
                         <img className=' w-12 h-12 rounded-full' src={user?.photoURL} alt="" />
-                        <p>{user?.displayName}</p>
+                        <p>{userData?.name}</p>
                     </div>
                 </div>
                 <div>

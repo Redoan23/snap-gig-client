@@ -43,7 +43,7 @@ const Register = () => {
         const role = data.role
         const file = { image: data.file[0] }
         const imgBBUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`
-        const userData = { name, email, role }
+        // const userData = { name, email, role }
 
 
         if (data.role === 'selectrole') {
@@ -67,7 +67,7 @@ const Register = () => {
                             displayName: name,
                             photoURL: imgLink ? imgLink : url
                         })
-
+                        const userData = { name, email, role, imgLink }
                         axiosPublic.post('/users', userData)
                             .then(res => {
                                 console.log(res.data)
@@ -120,8 +120,9 @@ const Register = () => {
                 const user = res.user
                 const name = user.displayName
                 const email = user.email
+                const img = user?.photoURL
                 const role = 'worker'
-                const userData = { name, email, role }
+                const userData = { name, email, img, role }
                 axiosPublic.post('/users', userData)
                     .then(res => {
                         if (res.data.insertedId) {

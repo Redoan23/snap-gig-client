@@ -14,6 +14,9 @@ import UpdateTask from '../Pages/TaskCreator/MyTasks/UpdateTask/UpdateTask';
 import PurchaseCoin from '../Pages/TaskCreator/PurchaseCoin/PurchaseCoin';
 import Payment from '../Pages/Payment/Payment';
 import PaymentHistory from '../Pages/TaskCreator/PaymentHistory/PaymentHistory';
+import AdminHome from '../Pages/Admin/AdminHome/AdminHome';
+import ManageUsers from '../Pages/Admin/ManageUsers/ManageUsers';
+import ManageTasks from '../Pages/Admin/ManageTasks/ManageTasks';
 
 
 
@@ -51,7 +54,7 @@ const router = createBrowserRouter([
     // Dashboard layout section
 
     {
-        path: 'dashboard',
+        path: '/dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
             // Task creator related children
@@ -78,9 +81,26 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/paymenthistory',
                 element: <PaymentHistory></PaymentHistory>
+            },
+
+            // admin related children
+            {
+                path: '/dashboard/adminHome',
+                element: <AdminHome></AdminHome>
+            },
+            {
+                path: '/dashboard/manageUsers',
+                element: <ManageUsers></ManageUsers>
+            },
+            {
+                path: '/dashboard/manageTasks',
+                element: <ManageTasks></ManageTasks>
             }
+
+
         ]
-    }
+    },
+
 ]);
 
 
