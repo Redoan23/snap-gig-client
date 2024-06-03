@@ -1,41 +1,102 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form"
+import useAllUserData from '../../../Hooks/useAllUserData/useAllUserData';
+import Swal from 'sweetalert2';
+import useAuth from '../../../Hooks/useAuth';
+import moment from 'moment';
+import useAxiosPrivate from '../../../Hooks/useAxiosPrivate/useAxiosPrivate';
 import useUserData from '../../../Hooks/useUserData/useUserData';
 
 
 const AddNewTasks = () => {
 
-    const [userData] = useUserData()
-    console.log(userData?.length)
+    const [allUserData] = useAllUserData()
+    const [userData, refetch] = useUserData()
+    const axiosPrivate = useAxiosPrivate()
+    const { user } = useAuth()
+    const [loadingUpdate, setLoadingUpdate] = useState(false)
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+
+
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm()
 
     const onSubmit = (data) => {
-        console.log(data)
         const taskTitle = data.tasktitle
         const taskDetails = data.taskdetails
         const taskQuantity = data.taskquantity
         const payableAmount = data.payableamount
         const completionDate = data.completiondate
         const submissionInfo = data.submissioninfo
-        const taskImage = data.file[0]
-
-        // console.log(taskTitle,
-        //     taskDetails,
-        //     taskQuantity,
-        //     payableAmount,
-        //     completionDate,
-        //     submissionInfo,
-        //     taskImage)
+        const currentTime = moment().format('LTS')
+        const taskImage = { image: data.file[0] }
+        const creatorEmail = user?.email
+        const creatorName = user?.displayName
+        const imgBBUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`
         const totalPayment = taskQuantity * payableAmount
-        if (totalPayment > userData.length){
-            console.log('beshi hoise maybe')
-        }
+        console.log(totalPayment)
 
+        if (totalPayment > userData?.coin) {
+            return Toast.fire({
+                text: 'Not enough Coin. Purchase Coin',
+                icon: 'error'
+            })
+        }
+        axiosPrivate.post(imgBBUrl, taskImage, {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+        })
+            .then(res => {
+                setLoadingUpdate(false)
+                const imgLink = res.data.data.display_url
+                const taskData = {
+                    taskTitle, taskDetails, taskQuantity, payableAmount, totalPayment, completionDate,
+                    submissionInfo, currentTime, imgLink, creatorEmail, creatorName
+                }
+
+                axiosPrivate.patch(`/users/${creatorEmail}`, { totalPayment })
+                    .then(res => {
+                        console.log('successfully patched')
+                        axiosPrivate.post('/tasks', taskData)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    Toast.fire({
+                                        text: 'your tasks has been submitted, please wait for the approval',
+                                        icon: "success"
+                                    })
+                                }
+                                refetch()
+                            })
+                            .catch(err => {
+                                Toast.fire({
+                                    text: `${err.message}`,
+                                    icon: 'error'
+                                })
+                            })
+                    })
+            })
+            .catch(err => {
+                setLoadingUpdate(false)
+                Toast.fire({
+                    text: `${err.message}`,
+                    icon: 'error'
+                })
+            })
     }
 
     return (
@@ -63,28 +124,29 @@ const AddNewTasks = () => {
                     <label className="label">
                         <span className="label-text">Payable Amount Per Task</span>
                     </label>
-                    <input type="number" placeholder="task quantity" className="input input-bordered"  {...register('payableamount', { required: true })} />
+                    <input type="number" placeholder="payable amount" className="input input-bordered"  {...register('payableamount', { required: true })} />
                 </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Completion Date</span>
                     </label>
-                    <input type="date" placeholder="task quantity" className="input input-bordered"  {...register('completiondate', { required: true })} />
+                    <input type="date" className="input input-bordered"  {...register('completiondate', { required: true })} />
                 </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Submission Info</span>
                     </label>
-                    <input type="date" placeholder="task quantity" className="input input-bordered"  {...register('submissioninfo', { required: true })} />
+                    <input type="text" placeholder="submission info" className="input input-bordered"  {...register('submissioninfo', { required: true })} />
                 </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Task Image</span>
                     </label>
-                    <input type="file" placeholder="task quantity" className="input input-bordered"  {...register('file', { required: true })} />
+                    <input type="file" className="input input-bordered"  {...register('file', { required: true })} />
                 </div>
                 <div className="form-control mt-6">
-                    <input type="submit" value='Add Task' className=' btn bg-[#007bff] text-white' />
+                    {/* <input type="submit" onClick={() => setLoadingUpdate(true)} value={loadingUpdate ? <span className="loading loading-dots loading-xs"></span> : 'Add Task'} className=' btn bg-[#007bff] text-white' /> */}
+                    <button onClick={() => setLoadingUpdate(true)}  className=' btn bg-[#007bff] text-white'>{loadingUpdate ? <span className="loading loading-dots loading-xs"></span> : 'Add Task'} </button>
                 </div>
             </form>
         </div>

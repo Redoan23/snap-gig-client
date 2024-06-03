@@ -9,6 +9,7 @@ import PrivateRoute from './PrivateRoute/PrivateRoute';
 import UserProfile from '../Pages/UserProfile/UserProfile';
 import AddNewTasks from '../Pages/TaskCreator/AddNewTasks/AddNewTasks';
 import CreatorHome from '../Pages/TaskCreator/CreatorHome/CreatorHome';
+import MyTasks from '../Pages/TaskCreator/MyTasks/MyTasks';
 
 
 
@@ -42,17 +43,21 @@ const router = createBrowserRouter([
     // Dashboard layout section
 
     {
-        path: '/dashboard',
+        path: 'dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
             // Task creator related children
             {
-                path: '/dashboard',
+                path: '/dashboard/creatorhome',
                 element: <CreatorHome></CreatorHome>
             },
             {
                 path: '/dashboard/addnewtasks',
                 element: <AddNewTasks></AddNewTasks>
+            },
+            {
+                path: '/dashboard/mytasks',
+                element: <MyTasks></MyTasks>
             }
         ]
     }

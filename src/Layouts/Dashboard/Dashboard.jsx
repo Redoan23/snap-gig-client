@@ -28,7 +28,7 @@ const Dashboard = () => {
 
                     {user === 'taskcreator' &&
                         <ul className='menu text-white space-y-4'>
-                            <li><NavLink to='/dashboard'>Home</NavLink></li>
+                            <li><NavLink to='/dashboard/creatorhome'>Home</NavLink></li>
                             <li><NavLink to='/dashboard/addnewtasks'>Add New Tasks</NavLink></li>
                             <li><NavLink to='/dashboard/mytasks'>My Tasks</NavLink></li>
                             <li><NavLink to='/dashboard/purchasecoin'>Purchase Coin</NavLink></li>
@@ -44,8 +44,8 @@ const Dashboard = () => {
                         </ul>
                     }
                 </div>
-                <div className=' w-full'>
-                    <div className=''>
+                <div className=' w-full '>
+                    <div className='min-h-screen'>
                         <Outlet></Outlet>
                     </div>
                     <div className=''>
