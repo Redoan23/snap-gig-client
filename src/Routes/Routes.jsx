@@ -10,6 +10,8 @@ import UserProfile from '../Pages/UserProfile/UserProfile';
 import AddNewTasks from '../Pages/TaskCreator/AddNewTasks/AddNewTasks';
 import CreatorHome from '../Pages/TaskCreator/CreatorHome/CreatorHome';
 import MyTasks from '../Pages/TaskCreator/MyTasks/MyTasks';
+import UpdateTask from '../Pages/TaskCreator/MyTasks/UpdateTask/UpdateTask';
+import PurchaseCoin from '../Pages/TaskCreator/PurchaseCoin/PurchaseCoin';
 
 
 
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/mytasks',
                 element: <MyTasks></MyTasks>
+            },
+            {
+                path: '/dashboard/updatetask/:id',
+                element: <UpdateTask></UpdateTask>
+            },
+            {
+                path: '/dashboard/purchasecoin',
+                element: <PurchaseCoin></PurchaseCoin>
             }
         ]
     }

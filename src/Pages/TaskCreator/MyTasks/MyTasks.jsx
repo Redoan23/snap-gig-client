@@ -5,6 +5,7 @@ import { MdOutlineUpdate } from 'react-icons/md';
 import useAxiosPrivate from '../../../Hooks/useAxiosPrivate/useAxiosPrivate';
 import useAuth from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const MyTasks = () => {
 
@@ -44,9 +45,6 @@ const MyTasks = () => {
         });
     }
 
-    const handleUpdateTask = (id) => {
-
-    }
 
     return (
         <div>
@@ -69,7 +67,7 @@ const MyTasks = () => {
                                 <td>{task.taskTitle}</td>
                                 <td>{task.taskQuantity}</td>
                                 <td>$ {task.payableAmount}</td>
-                                <td><button onClick={() => handleUpdateTask(task._id)} className=' btn btn-sm bg-orange-500 text-white'> <MdOutlineUpdate /> Update</button></td>
+                                <td><Link to={`/dashboard/updatetask/${task._id}`} className=' btn btn-sm bg-orange-500 text-white'> <MdOutlineUpdate /> Update</Link></td>
                                 <td><button onClick={() => handleDeleteTask(task._id)} className=' btn btn-sm bg-red-500 text-white'><AiOutlineMinus /> Delete</button></td>
                             </tr>)
                             }
