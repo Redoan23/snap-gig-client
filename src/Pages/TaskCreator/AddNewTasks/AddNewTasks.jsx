@@ -76,7 +76,7 @@ const AddNewTasks = () => {
                             .then(res => {
                                 if (res.data.insertedId) {
                                     Toast.fire({
-                                        text: 'your tasks has been submitted, please wait for the approval',
+                                        text: 'your tasks has been submitted',
                                         icon: "success"
                                     })
                                 }

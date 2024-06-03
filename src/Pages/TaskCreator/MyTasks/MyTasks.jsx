@@ -6,10 +6,12 @@ import useAxiosPrivate from '../../../Hooks/useAxiosPrivate/useAxiosPrivate';
 import useAuth from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import useUserData from '../../../Hooks/useUserData/useUserData';
 
 const MyTasks = () => {
 
     const [taskCreatorTasks, refetch] = useTaskCreatorTasks()
+    const [, refetchUserData] = useUserData()
     const axiosPrivate = useAxiosPrivate()
     const { user } = useAuth()
     const email = user?.email
@@ -30,6 +32,7 @@ const MyTasks = () => {
                 const res = await axiosPrivate.delete(`/tasks/${id}`)
                 if (res.data.deletedCount > 0) {
                     refetch()
+                    refetchUserData()
                     Swal.fire({
                         title: "Deleted!",
                         text: "Your task has been deleted.",
@@ -39,6 +42,7 @@ const MyTasks = () => {
                 }
                 else {
                     refetch()
+                    refetchUserData()
                     return res.data
                 }
             }

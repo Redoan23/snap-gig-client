@@ -7,12 +7,15 @@ import {
     CardElement
 } from "@stripe/react-stripe-js";
 import Swal from "sweetalert2";
+import useUserData from "../../../Hooks/useUserData/useUserData";
+import moment from "moment";
 
 const CheckoutForm = ({ clientSecret, totalAmount }) => {
     const axiosPrivate = useAxiosPrivate()
     const stripe = useStripe();
-    const { user } = useAuth()
     const elements = useElements();
+    const [, refetch] = useUserData()
+    const { user } = useAuth();
     const [err, setErr] = useState('')
     const [transactionId, setTransactionId] = useState(null)
 
@@ -64,7 +67,7 @@ const CheckoutForm = ({ clientSecret, totalAmount }) => {
             }
         })
         if (confirmError) {
-            console.log('confirm error')
+            setErr(confirmError.message)
         }
         else {
             console.log('payment intent', paymentIntent)
@@ -75,15 +78,16 @@ const CheckoutForm = ({ clientSecret, totalAmount }) => {
                     email: user.email,
                     price: totalAmount,
                     transactionId: paymentIntent.id,
-                    date: new Date()
+                    date: moment().format('MMMM Do YYYY, h:mm:ss a')
                 }
                 const res = await axiosPrivate.post('/payments', payment)
                 console.log(res)
                 if (res.data.modifiedCount > 0) {
                     Toast.fire({
-                        text: 'Payment Successful, you got',
+                        text: `Payment Successful, ${res.data.coinMessage} coins added`,
                         icon: 'success'
                     })
+                    refetch()
                 }
 
             }

@@ -13,6 +13,7 @@ import MyTasks from '../Pages/TaskCreator/MyTasks/MyTasks';
 import UpdateTask from '../Pages/TaskCreator/MyTasks/UpdateTask/UpdateTask';
 import PurchaseCoin from '../Pages/TaskCreator/PurchaseCoin/PurchaseCoin';
 import Payment from '../Pages/Payment/Payment';
+import PaymentHistory from '../Pages/TaskCreator/PaymentHistory/PaymentHistory';
 
 
 
@@ -41,8 +42,8 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><UserProfile></UserProfile></PrivateRoute>
             },
             {
-                path:'/payment/:amount',
-                element:<Payment></Payment>
+                path: '/payment/:amount',
+                element: <Payment></Payment>
             }
         ]
     },
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
                 path: '/dashboard/purchasecoin',
                 element: <PurchaseCoin></PurchaseCoin>
             },
+            {
+                path: '/dashboard/paymenthistory',
+                element: <PaymentHistory></PaymentHistory>
+            }
         ]
     }
 ]);
