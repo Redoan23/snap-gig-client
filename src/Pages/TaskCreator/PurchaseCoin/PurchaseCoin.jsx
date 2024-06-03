@@ -12,7 +12,7 @@ const PurchaseCoin = () => {
 
     return (
         <div className=' flex flex-wrap gap-10 p-5'>
-            <Link>
+            <Link to={`/payment/${1}`}>
                 <div className="card  w-96 h-60 rounded-none bg-base-100 shadow-xl border py-4">
                     <figure className=' flex items-center'> <span className=' text-5xl font-semibold'>10</span> <RiCoinsLine size={60} color=' #E5C100' /></figure>
                     <div className="card-body items-center text-center">
@@ -21,7 +21,7 @@ const PurchaseCoin = () => {
                     </div>
                 </div>
             </Link>
-            <Link>
+            <Link to={`/payment/${10}`} >
                 <div className="card  w-96 h-60 rounded-none bg-base-100 shadow-xl border py-4">
                     <figure><span className=' text-5xl font-semibold'>100</span> < RiCoinsLine size={60} color=' #E5C100' /></figure>
                     <div className="card-body items-center text-center">
@@ -30,7 +30,7 @@ const PurchaseCoin = () => {
                     </div>
                 </div>
             </Link>
-            <Link>
+            <Link  to={`/payment/${100}`}>
                 <div className="card  w-96 h-60 rounded-none bg-base-100 shadow-xl border py-4">
                     <figure><span className=' text-5xl font-semibold'>500</span> <RiCoinsLine size={60} color=' #E5C100' /></figure>
                     <div className="card-body items-center text-center">
@@ -40,7 +40,7 @@ const PurchaseCoin = () => {
                 </div>
             </Link>
 
-            <Link>
+            <Link  to={`/payment/${500}`}>
                 <div className="card  w-96 h-60 rounded-none bg-base-100 shadow-xl border py-4">
                     <figure> <span className=' text-5xl font-semibold'>1000</span> <RiCoinsLine size={60} color=' #E5C100' /></figure>
                     <div className="card-body items-center text-center">
