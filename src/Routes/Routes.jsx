@@ -20,6 +20,8 @@ import ManageTasks from '../Pages/Admin/ManageTasks/ManageTasks';
 import WorkerHome from '../Pages/Worker/WorkerHome/WorkerHome';
 import WorkerTasksList from '../Pages/Worker/WokerTasksList/WorkerTasksList';
 import WorkerSubmissions from '../Pages/Worker/WorkerSubmissions/WorkerSubmissions';
+import TaskDetails from '../Pages/TaskDetails/TaskDetails';
+import Withdrawal from '../Pages/Worker/Withdrawal/Withdrawal';
 
 
 
@@ -112,6 +114,14 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/workerSubmissions',
                 element: <WorkerSubmissions></WorkerSubmissions>
+            },
+            {
+                path: '/dashboard/taskDetails/:id',
+                element: <TaskDetails></TaskDetails>
+            },
+            {
+                pathL: '/dashboard/withdrawal',
+                element: <Withdrawal></Withdrawal>
             }
 
         ]

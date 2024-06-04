@@ -40,6 +40,7 @@ const Dashboard = () => {
                             <li><NavLink to='/dashboard/workerHome'>Home</NavLink></li>
                             <li><NavLink to='/dashboard/workerTasksList'>Task List</NavLink></li>
                             <li><NavLink to='/dashboard/workerSubmissions'>My Submission</NavLink></li>
+                            <li><NavLink to='/dashboard/withdrawal'>Withdraw Coin</NavLink></li>
                         </ul>
                     }
                 </div>
