@@ -31,7 +31,7 @@ const TaskDetailsPopup = ({ task }) => {
       confirmButtonText: "Okay"
     })
 
-  }, [])
+  }, [task])
 
 
 };

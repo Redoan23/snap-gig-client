@@ -120,7 +120,7 @@ const router = createBrowserRouter([
                 element: <TaskDetails></TaskDetails>
             },
             {
-                pathL: '/dashboard/withdrawal',
+                path: '/dashboard/withdrawal',
                 element: <Withdrawal></Withdrawal>
             }
 

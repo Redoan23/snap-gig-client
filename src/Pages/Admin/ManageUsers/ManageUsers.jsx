@@ -112,7 +112,7 @@ const ManageUsers = () => {
                                     <option value="worker">Worker</option>
                                 </select>
                             </td>
-                            <td><button onClick={() => handleDeleteUser(worker._id)} className=' btn btn-sm bg-red-300 text-white'> - Remove</button></td>
+                            <td><button onClick={() => handleDeleteUser(worker._id)} className=' btn btn-sm bg-red-500 text-white'> - Remove</button></td>
                         </tr>)}
 
                     </tbody>

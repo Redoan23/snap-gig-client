@@ -48,9 +48,11 @@ const AddNewTasks = () => {
         const creatorName = user?.displayName
         const imgBBUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`
         const totalPayment = taskQuantity * payableAmount
-        console.log(totalPayment)
+
+        setLoadingUpdate(true)
 
         if (totalPayment > userData?.coin) {
+            setLoadingUpdate(false)
             return Toast.fire({
                 text: 'Not enough Coin. Purchase Coin',
                 icon: 'error'
@@ -146,7 +148,7 @@ const AddNewTasks = () => {
                 </div>
                 <div className="form-control mt-6">
                     {/* <input type="submit" onClick={() => setLoadingUpdate(true)} value={loadingUpdate ? <span className="loading loading-dots loading-xs"></span> : 'Add Task'} className=' btn bg-[#007bff] text-white' /> */}
-                    <button onClick={() => setLoadingUpdate(true)}  className=' btn bg-[#007bff] text-white'>{loadingUpdate ? <span className="loading loading-dots loading-xs"></span> : 'Add Task'} </button>
+                    <button className=' btn bg-[#007bff] text-white'>{loadingUpdate ? <span className="loading loading-dots loading-xs"></span> : 'Add Task'} </button>
                 </div>
             </form>
         </div>

@@ -70,7 +70,7 @@ const MyTasks = () => {
                                 <th>{ }</th>
                                 <td>{task.taskTitle}</td>
                                 <td>{task.taskQuantity}</td>
-                                <td>$ {task.payableAmount}</td>
+                                <td>{task.payableAmount} coin</td>
                                 <td><Link to={`/dashboard/updatetask/${task._id}`} className=' btn btn-sm bg-orange-500 text-white'> <MdOutlineUpdate /> Update</Link></td>
                                 <td><button onClick={() => handleDeleteTask(task._id)} className=' btn btn-sm bg-red-500 text-white'><AiOutlineMinus /> Delete</button></td>
                             </tr>)
