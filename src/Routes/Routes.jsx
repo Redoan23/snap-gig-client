@@ -17,6 +17,9 @@ import PaymentHistory from '../Pages/TaskCreator/PaymentHistory/PaymentHistory';
 import AdminHome from '../Pages/Admin/AdminHome/AdminHome';
 import ManageUsers from '../Pages/Admin/ManageUsers/ManageUsers';
 import ManageTasks from '../Pages/Admin/ManageTasks/ManageTasks';
+import WorkerHome from '../Pages/Worker/WorkerHome/WorkerHome';
+import WorkerTasksList from '../Pages/Worker/WokerTasksList/WorkerTasksList';
+import WorkerSubmissions from '../Pages/Worker/WorkerSubmissions/WorkerSubmissions';
 
 
 
@@ -95,8 +98,21 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/manageTasks',
                 element: <ManageTasks></ManageTasks>
-            }
+            },
 
+            // worker related children
+            {
+                path: '/dashboard/workerHome',
+                element: <WorkerHome></WorkerHome>,
+            },
+            {
+                path: '/dashboard/workerTasksList',
+                element: <WorkerTasksList></WorkerTasksList>
+            },
+            {
+                path: '/dashboard/workerSubmissions',
+                element: <WorkerSubmissions></WorkerSubmissions>
+            }
 
         ]
     },

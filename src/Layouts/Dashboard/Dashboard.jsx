@@ -37,9 +37,9 @@ const Dashboard = () => {
                     {
                         user === 'worker' &&
                         <ul className='menu text-white space-y-4'>
-                            <li><NavLink to='/'>Home</NavLink></li>
-                            <li><NavLink to='/'>Task List</NavLink></li>
-                            <li><NavLink to='/'>My Submission</NavLink></li>
+                            <li><NavLink to='/dashboard/workerHome'>Home</NavLink></li>
+                            <li><NavLink to='/dashboard/workerTasksList'>Task List</NavLink></li>
+                            <li><NavLink to='/dashboard/workerSubmissions'>My Submission</NavLink></li>
                         </ul>
                     }
                 </div>

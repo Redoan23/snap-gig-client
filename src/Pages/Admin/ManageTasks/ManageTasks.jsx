@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosPrivate from '../../../Hooks/useAxiosPrivate/useAxiosPrivate';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { BiMinus } from 'react-icons/bi';
 import { FaEye } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import TaskDetailsPopup from './TaskDetailsPopup/TaskDetailsPopup';
 
 const ManageTasks = () => {
 
     const axiosPrivate = useAxiosPrivate()
+    const [taskInfo, setTaskInfo] = useState(null)
 
     const { data: tasks = [], refetch } = useQuery({
         queryKey: ['tasks'],
@@ -48,6 +50,10 @@ const ManageTasks = () => {
     }
 
 
+    const handleViewTask = (task) => {
+        setTaskInfo(task)
+    }
+
     return (
         <div>
             <div className="overflow-x-auto p-5">
@@ -72,15 +78,16 @@ const ManageTasks = () => {
                             <td>{task.totalPayment}</td>
                             <td>{task.completionDate}</td>
                             <td>
-                                <Link>
-                                    <button className=' btn btn-sm text-white bg-[#007bff9e]'> <FaEye /> View Task</button>
-                                </Link>
+
+                                <button onClick={() => handleViewTask(task)} className=' btn btn-sm text-white bg-[#007bff9e]'> <FaEye /> View Task</button>
+
                             </td>
                             <td><button onClick={() => handleDeleteTask(task)} className=' btn btn-sm bg-red-500 text-white'> <BiMinus /> Delete Task</button></td>
                         </tr>)}
                     </tbody>
                 </table>
             </div>
+            {taskInfo && <TaskDetailsPopup task={taskInfo} />}
         </div>
     );
 };

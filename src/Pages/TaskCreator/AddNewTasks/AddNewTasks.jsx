@@ -38,11 +38,11 @@ const AddNewTasks = () => {
     const onSubmit = (data) => {
         const taskTitle = data.tasktitle
         const taskDetails = data.taskdetails
-        const taskQuantity = data.taskquantity
-        const payableAmount = data.payableamount
+        const taskQuantity = parseInt(data.taskquantity)
+        const payableAmount = parseInt(data.payableamount)
         const completionDate = data.completiondate
         const submissionInfo = data.submissioninfo
-        const currentTime = moment().format('LTS')
+        const currentTime = moment().format('MMMM Do YYYY, h:mm:ss a')
         const taskImage = { image: data.file[0] }
         const creatorEmail = user?.email
         const creatorName = user?.displayName
