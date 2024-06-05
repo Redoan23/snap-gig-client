@@ -37,14 +37,14 @@ const Withdrawal = () => {
         const form = e.target
         const withdrawCoin = parseInt(form.amount.value)
         const paymentSystem = form.paymentSystem.value
-        const number = parseInt(form.accountNumber.value)
+        const paymentNumber = parseInt(form.accountNumber.value)
         const withdrawAmount = parseFloat(form.dollars.value)
         const withdrawTime = moment().format('MMMM Do YYYY, h:mm:ss a')
         setLoading(true)
 
 
         const withdrawalData = {
-            workerName, workerEmail, withdrawCoin, paymentSystem, withdrawAmount, withdrawTime
+            workerName, workerEmail, withdrawCoin, paymentNumber, paymentSystem, withdrawAmount, withdrawTime
         }
 
         if (coin / currencyRate < withdrawAmount) {
