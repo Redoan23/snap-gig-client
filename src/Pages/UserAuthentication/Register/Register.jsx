@@ -78,7 +78,6 @@ const Register = () => {
 
                     })
                     .catch(err => {
-                        console.log(err)
                         Swal.fire({
                             position: "top-end",
                             icon: "error",
@@ -100,6 +99,7 @@ const Register = () => {
                     timer: 1500
                 });
             })
+        data.reset()
     };
     // password strength watcher
     let passwordStrength = ''

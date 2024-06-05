@@ -56,7 +56,6 @@ const TaskDetails = () => {
 
         axiosPrivate.post('/submittedData', submittedData)
             .then(res => {
-                console.log(res.data)
                 setLoading(false)
                 if (res.data.insertedId) {
                     Toast.fire({

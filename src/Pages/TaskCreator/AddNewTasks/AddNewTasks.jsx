@@ -73,7 +73,6 @@ const AddNewTasks = () => {
 
                 axiosPrivate.patch(`/users/${creatorEmail}`, { totalPayment })
                     .then(res => {
-                        console.log('successfully patched')
                         axiosPrivate.post('/tasks', taskData)
                             .then(res => {
                                 if (res.data.insertedId) {
