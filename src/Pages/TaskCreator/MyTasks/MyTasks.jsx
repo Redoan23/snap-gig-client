@@ -53,6 +53,12 @@ const MyTasks = () => {
     return (
         <div>
             <div>
+                <h3 className=' text-4xl text-center font-bold pb-24'>Your Tasks</h3>
+            </div>
+            <div>
+                <h3 className=' text-center font-semibold text-xl pb-4'>Tasks List</h3>
+            </div>
+            <div>
                 <div className="overflow-x-auto">
                     <table className="table">
                         {/* head */}

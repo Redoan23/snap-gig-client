@@ -18,7 +18,13 @@ const PaymentHistory = () => {
 
     return (
         <div>
-            <div className="overflow-x-auto p-10">
+            <div>
+                <h3 className=' text-center font-bold text-4xl pb-24'>Your Payment History</h3>
+            </div>
+            <div>
+                <h3 className='text-xl text-center pb-4'>Payment List</h3>
+            </div>
+            <div className="overflow-x-auto px-10">
                 <table className="table border">
                     {/* head */}
                     <thead>

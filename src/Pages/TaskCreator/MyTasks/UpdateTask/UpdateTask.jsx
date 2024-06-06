@@ -46,7 +46,10 @@ const UpdateTask = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+            <div>
+                <h3 className=' text-center text-4xl font-bold pb-24'>Update Your Task</h3>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="card-body pt-0">
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Task Title</span>

@@ -45,8 +45,8 @@ const Navbar = () => {
                 <div className="navbar-end">
                     {user && <div className=' flex items-center gap-3'>
                         {userData && <p className=' flex items-center gap-1'>Total Coin : {userData?.coin} <RiCoinsLine className=' text-yellow-500 text-xl' /> </p>}
-                        <div className=' overflow-hidden'>
-                            <img className=' w-12  h-12 rounded-full' src={user.photoURL} alt="" />
+                        <div className=' overflow-hidden h-11 w-11 rounded-full'>
+                            <img className=' w-full  h-full rounded-full' src={user.photoURL} alt="" />
                         </div>
                         <button onClick={handleLogOut} className=' btn bg-[#007bff] text-white'>Log Out</button>
                     </div>}

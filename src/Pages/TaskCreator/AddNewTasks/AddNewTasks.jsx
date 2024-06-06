@@ -102,6 +102,9 @@ const AddNewTasks = () => {
 
     return (
         <div>
+            <div> 
+                <h3 className=' text-4xl font-bold text-center pb-20'>Add A New Task</h3>
+            </div>
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                 <div className="form-control">
                     <label className="label">
